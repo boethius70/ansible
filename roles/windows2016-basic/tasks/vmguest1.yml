@@ -1,0 +1,34 @@
+---
+- hosts: all
+  gather_facts: false
+  connection: local
+  vars_prompt:
+    - name: "vcenter_user"
+      prompt: "vCenter Username"
+      private: no
+    - name: "vcenter_pass"
+      prompt: "vCenter Password"
+      private: yes
+  vars:
+    vcenter_hostname: vcsa1.fd.local
+    esxhost: 192.168.1.20
+    datastore: datastore1
+    network: "VM network"
+    vmtemplate: WIN2016T2
+    vm_memory : 2048
+  tasks:
+    - name: "Deploy VM"
+      vmware_guest:
+        name: "{{ inventory_hostname }}"
+        hostname: '{{ vcenter_hostname }}'
+        username: '{{ vcenter_user }}'
+        password: '{{ vcenter_pass }}'
+        validate_certs: no
+        esxi_hostname: 192.168.1.20
+        state: poweredon
+        datacenter: "HomeDatacenter"
+        template: "{{ vmtemplate }}"
+        hardware:
+          memory_mb: "{{ vm_memory | default(1024) }}"
+          num_cpus: 2
+        wait_for_ip_address: yes

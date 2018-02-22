@@ -1,0 +1,14 @@
+ vars_prompt:
+    - name: "vcenter_user"
+      prompt: "vCenter Username"
+      private: no
+    - name: "vcenter_pass"
+      prompt: "vCenter Password"
+      private: yes
+  vars:
+    vcenter_hostname: vcsa1.fd.local
+    esxhost: 192.168.1.20
+    datastore: datastore1
+    network: "VM network"
+    vmtemplate: WIN2016T2
+    vm_memory : 2048

@@ -1,0 +1,9 @@
+[iis]
+192.168.1.50 
+
+[db]
+192.168.1.51
+
+[multi:children]
+iis
+db
